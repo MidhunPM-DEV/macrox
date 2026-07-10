@@ -11,10 +11,4 @@ class AppSpacing {
   // Screen Padding
   static const double screenHorizontal = 20;
   static const double screenVertical = 24;
-
-  // Border Radius
-  static const double radiusSm = 8;
-  static const double radiusMd = 12;
-  static const double radiusLg = 16;
-  static const double radiusXl = 24;
 }
