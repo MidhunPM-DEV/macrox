@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
+import 'package:macrox_app/features/auth/presentation/pages/signup_page.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -213,26 +214,30 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Center(
-                  child: RichText(
-                    text: const TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Don't have an account? ",
-                          style: TextStyle(color: AppColors.textSecondaryColor),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account?",
+                        style: TextStyle(color: AppColors.textSecondaryColor),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignupPage(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Sign up",
+                          style: TextStyle(color: AppColors.primaryColor),
                         ),
-
-                        TextSpan(
-                          text: "Sign up",
-
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
 
