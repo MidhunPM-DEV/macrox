@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   //background colors
-  static const Color backgroundColor = Color(0xFF0B0F14);
+  static const backgroundColor = Color.fromARGB(255, 22, 22, 23);
   static const Color surfaceColor = Color(0xFF151A21);
   static const Color cardBackgroundColor = Color(0xFF1D242D);
   //primary
-  static const Color primaryColor = Color(0xFF6BE675);
+  static const primaryColor = Color(0xFF7ED321);
   //macro colors
   static const Color calories = Color(0xFFFF9F1C);
   static const Color protein = Color(0xFF22C55E);
