@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
+import 'package:macrox_app/features/onboarding/widgets/custom_app_textfield.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -14,297 +15,221 @@ class _SignupPageState extends State<SignupPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   bool hidePassword = true;
   bool hideConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
 
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                const SizedBox(height: 100),
+                children: [
+                  const SizedBox(height: 100),
 
-                const Text(
-                  "Create your\naccount",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                  const Text(
+                    "Create your\naccount",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-                const Text(
-                  "Let's get started",
-                  style: TextStyle(
-                    color: AppColors.textSecondaryColor,
-                    fontSize: 15,
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-                TextField(
-                  controller: nameController,
-
-                  style: const TextStyle(color: Colors.white),
-
-                  decoration: InputDecoration(
-                    hintText: "Full Name",
-                    hintStyle: const TextStyle(
+                  const Text(
+                    "Let's get started",
+                    style: TextStyle(
                       color: AppColors.textSecondaryColor,
-                    ),
-
-                    filled: true,
-                    fillColor: AppColors.cardBackgroundColor,
-
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 18,
-                    ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
+                      fontSize: 15,
                     ),
                   ),
-                ),
-                const SizedBox(height: 18),
-                TextField(
-                  controller: emailController,
 
-                  style: const TextStyle(color: Colors.white),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your full name";
+                            }
+                            return null;
+                          },
+                          controller: nameController,
+                          hintText: "Full Name",
+                        ),
+                        CustomTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your email";
+                            }
+                            return null;
+                          },
+                          controller: emailController,
+                          hintText: "Email",
+                        ),
+                        CustomTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your password";
+                            }
+                            if (value.length < 8) {
+                              return "Password must be at least 8 characters";
+                            }
 
-                  decoration: InputDecoration(
-                    hintText: "Email or Phone",
-                    hintStyle: const TextStyle(
-                      color: AppColors.textSecondaryColor,
-                    ),
-
-                    filled: true,
-                    fillColor: AppColors.cardBackgroundColor,
-
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 18,
-                    ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
+                            return null;
+                          },
+                          controller: passwordController,
+                          hintText: "Password",
+                        ),
+                        CustomTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please confirm your password";
+                            }
+                            if (value != passwordController.text) {
+                              return "Passwords do not match";
+                            }
+                            return null;
+                          },
+                          controller: confirmPasswordController,
+                          hintText: "Confirm Password",
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 18),
 
-                TextField(
-                  controller: passwordController,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {},
 
-                  obscureText: hidePassword,
-
-                  style: const TextStyle(color: Colors.white),
-
-                  decoration: InputDecoration(
-                    hintText: "Password",
-
-                    hintStyle: const TextStyle(
-                      color: AppColors.textSecondaryColor,
-                    ),
-
-                    filled: true,
-
-                    fillColor: AppColors.cardBackgroundColor,
-
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 18,
-                    ),
-
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          hidePassword = !hidePassword;
-                        });
-                      },
-
-                      icon: Icon(
-                        hidePassword
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: Colors.grey,
+                      child: const Text(
+                        "Forgot password?",
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
-                    ),
                   ),
-                ),
 
-                const SizedBox(height: 18),
-
-                TextField(
-                  controller: confirmPasswordController,
-
-                  obscureText: hideConfirmPassword,
-
-                  style: const TextStyle(color: Colors.white),
-
-                  decoration: InputDecoration(
-                    hintText: "Confirm Password",
-
-                    hintStyle: const TextStyle(
-                      color: AppColors.textSecondaryColor,
-                    ),
-
-                    filled: true,
-
-                    fillColor: AppColors.cardBackgroundColor,
-
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 18,
-                    ),
-
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          hideConfirmPassword = !hideConfirmPassword;
-                        });
-                      },
-
-                      icon: Icon(
-                        hideConfirmPassword
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: Colors.grey,
-                      ),
-                    ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
-                    ),
+                  CustomAppElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        // Perform signup logic here
+                      }
+                    },
+                    text: "Sign up",
                   ),
-                ),
 
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
+                  const SizedBox(height: 35),
 
-                    child: const Text(
-                      "Forgot password?",
-                      style: TextStyle(color: AppColors.primaryColor),
-                    ),
+                  Row(
+                    children: const [
+                      Expanded(child: Divider(color: AppColors.borderColor)),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text("Or", style: TextStyle(color: Colors.grey)),
+                      ),
+
+                      Expanded(child: Divider(color: AppColors.borderColor)),
+                    ],
                   ),
-                ),
 
-                CustomAppElevatedButton(onPressed: () {}, text: "Sign up"),
+                  const SizedBox(height: 30),
 
-                const SizedBox(height: 35),
-
-                Row(
-                  children: const [
-                    Expanded(child: Divider(color: AppColors.borderColor)),
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text("Or", style: TextStyle(color: Colors.grey)),
-                    ),
-
-                    Expanded(child: Divider(color: AppColors.borderColor)),
-                  ],
-                ),
-
-                const SizedBox(height: 30),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 55),
-
-                          side: const BorderSide(color: AppColors.borderColor),
-
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-
-                        onPressed: () {},
-
-                        icon: Image.network(
-                          "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
-                          height: 22,
-                        ),
-
-                        label: const Text(""),
-                      ),
-                    ),
-
-                    const SizedBox(width: 16),
-
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 55),
-
-                          side: const BorderSide(color: AppColors.borderColor),
-
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-
-                        onPressed: () {},
-
-                        icon: const Icon(
-                          Icons.apple,
-                          color: Colors.white,
-                          size: 26,
-                        ),
-
-                        label: const Text(""),
-                      ),
-                    ),
-                  ],
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
                     children: [
-                      const Text(
-                        "Already have an account?",
-                        style: TextStyle(color: AppColors.textSecondaryColor),
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(0, 55),
+
+                            side: const BorderSide(
+                              color: AppColors.borderColor,
+                            ),
+
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+
+                          onPressed: () {},
+
+                          icon: Image.network(
+                            "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
+                            height: 22,
+                          ),
+
+                          label: const Text(""),
+                        ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          "Log in",
-                          style: TextStyle(color: AppColors.primaryColor),
+
+                      const SizedBox(width: 16),
+
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(0, 55),
+
+                            side: const BorderSide(
+                              color: AppColors.borderColor,
+                            ),
+
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+
+                          onPressed: () {},
+
+                          icon: const Icon(
+                            Icons.apple,
+                            color: Colors.white,
+                            size: 26,
+                          ),
+
+                          label: const Text(""),
                         ),
                       ),
                     ],
                   ),
-                ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already have an account?",
+                          style: TextStyle(color: AppColors.textSecondaryColor),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "Log in",
+                            style: TextStyle(color: AppColors.primaryColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-                const SizedBox(height: 25),
-              ],
+                  const SizedBox(height: 25),
+                ],
+              ),
             ),
           ),
         ),
