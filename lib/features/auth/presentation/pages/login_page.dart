@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
-import 'package:macrox_app/features/auth/presentation/pages/signup_page.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_textfield.dart';
-import 'package:macrox_app/features/profile/presentation/pages/basic_information_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,19 +29,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const BasicInformationPage()),
-    );
+    context.go(AppRoutes.basicInfo);
 
     debugPrint("Login Successful");
   }
 
   void _navigateToSignup() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const SignupPage()),
-    );
+    context.push(AppRoutes.signup);
   }
 
   @override
@@ -57,7 +51,16 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(height: 16),
+                IconButton(
+                  onPressed: () => context.go(AppRoutes.onboarding),
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(height: 40),
 
                 const Text(
                   "Welcome back",

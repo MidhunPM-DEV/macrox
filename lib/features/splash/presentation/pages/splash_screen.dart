@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:macrox_app/features/onboarding/presentation/pages/onboarding_page_one.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,10 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const OnboardingPageOne()),
-      );
+      if (!mounted) return;
+      context.go(AppRoutes.onboarding);
     });
   }
 

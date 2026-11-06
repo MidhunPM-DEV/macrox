@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_textfield.dart';
@@ -127,7 +129,7 @@ class _SignupPageState extends State<SignupPage> {
                   CustomAppElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        // Perform signup logic here
+                        context.go(AppRoutes.basicInfo);
                       }
                     },
                     text: "Sign up",
@@ -215,9 +217,7 @@ class _SignupPageState extends State<SignupPage> {
                           style: TextStyle(color: AppColors.textSecondaryColor),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: () => context.go(AppRoutes.login),
                           child: const Text(
                             "Log in",
                             style: TextStyle(color: AppColors.primaryColor),

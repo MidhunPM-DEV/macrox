@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
+import 'package:macrox_app/core/theme/app_typography.dart';
 
 class GoalActivityScreen extends StatefulWidget {
   const GoalActivityScreen({super.key});
@@ -42,7 +45,6 @@ class _GoalActivityScreenState extends State<GoalActivityScreen> {
   Widget build(BuildContext context) {
     const background = Color(0xff0E1116);
     const surface = Color(0xff1A1F28);
-    const primary = Color(0xff9BE15D);
     const secondary = Color(0xff8C939D);
 
     return Scaffold(
@@ -57,7 +59,7 @@ class _GoalActivityScreenState extends State<GoalActivityScreen> {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => context.pop(),
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
                       color: Colors.white,
@@ -218,17 +220,12 @@ class _GoalActivityScreenState extends State<GoalActivityScreen> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  onPressed: () {
-                    debugPrint(selectedGoal);
-                    debugPrint(selectedActivity);
-
-                    // Save to Firestore
-                    // Calculate macros
-                    // Navigate to Home
-                  },
-                  child: const Text(
+                  onPressed: () => context.go(AppRoutes.home),
+                  child: Text(
                     "Calculate My Macros",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: AppTypography.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

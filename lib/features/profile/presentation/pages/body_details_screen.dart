@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_textfield.dart';
-import 'package:macrox_app/features/profile/presentation/pages/goal_activity_screen.dart';
 
 class BodyDetailsScreen extends StatefulWidget {
   const BodyDetailsScreen({super.key});
@@ -42,7 +43,7 @@ class _BodyDetailsScreenState extends State<BodyDetailsScreen> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => context.pop(),
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
                           color: Colors.white,
@@ -147,13 +148,7 @@ class _BodyDetailsScreenState extends State<BodyDetailsScreen> {
                     text: "Next",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Navigate to the next screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const GoalActivityScreen(),
-                          ),
-                        );
+                        context.push(AppRoutes.goalActivity);
                       }
                     },
                   ),

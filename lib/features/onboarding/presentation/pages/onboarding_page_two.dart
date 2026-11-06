@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/core/theme/app_spacing.dart';
 import 'package:macrox_app/core/theme/app_typography.dart';
-import 'package:macrox_app/features/auth/presentation/pages/login_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/features/onboarding/presentation/widgets/feature_file.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 
@@ -98,14 +99,7 @@ class OnboardingPageTwo extends StatelessWidget {
                     height: 56,
                     child: CustomAppElevatedButton(
                       text: "Get Started",
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ),
-                        );
-                      },
+                      onPressed: () => context.go(AppRoutes.login),
                     ),
                   ),
                 ],

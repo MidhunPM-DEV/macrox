@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_textfield.dart';
-import 'package:macrox_app/features/profile/presentation/pages/body_details_screen.dart';
 
 class BasicInformationPage extends StatefulWidget {
   const BasicInformationPage({super.key});
@@ -77,7 +78,13 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            context.go(AppRoutes.login);
+                          }
+                        },
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
                           color: Colors.white,
@@ -190,14 +197,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                     text: "Next",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const BodyDetailsScreen(),
-                          ),
-                        );
-                      } else {
-                        print("Validation failed");
+                        context.push(AppRoutes.bodyDetails);
                       }
                     },
                   ),

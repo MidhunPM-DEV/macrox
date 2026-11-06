@@ -34,6 +34,26 @@ class AppTheme {
         color: AppColors.dividerColor,
         thickness: 1,
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppColors.surfaceColor,
+        indicatorColor: AppColors.primaryColor.withValues(alpha: 0.18),
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: AppColors.primaryColor);
+          }
+          return const IconThemeData(color: AppColors.textSecondaryColor);
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          final color = states.contains(WidgetState.selected)
+              ? AppColors.primaryColor
+              : AppColors.textSecondaryColor;
+          return TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: color,
+          );
+        }),
+      ),
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surfaceColor,

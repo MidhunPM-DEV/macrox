@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:macrox_app/core/theme/app_colors.dart';
 import 'package:macrox_app/core/theme/app_spacing.dart';
 import 'package:macrox_app/core/theme/app_typography.dart';
-import 'package:macrox_app/features/onboarding/presentation/pages/onboarding_page_two.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macrox_app/core/router/app_routes.dart';
 import 'package:macrox_app/features/onboarding/widgets/custom_app_elevated_button.dart';
 
 class OnboardingPageOne extends StatelessWidget {
@@ -96,14 +97,7 @@ class OnboardingPageOne extends StatelessWidget {
                     height: 56,
                     child: CustomAppElevatedButton(
                       text: "Next",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OnboardingPageTwo(),
-                          ),
-                        );
-                      },
+                      onPressed: () => context.push(AppRoutes.onboardingTwo),
                     ),
                   ),
                 ],
